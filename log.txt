@@ -1,0 +1,15 @@
+Movie API log file:
+
+
+URL: /
+Timestamp: Sun Nov 23 2025 15:59:40 GMT+0100 (Mitteleuropäische Normalzeit)
+
+URL: /favicon.ico
+Timestamp: Sun Nov 23 2025 15:59:40 GMT+0100 (Mitteleuropäische Normalzeit)
+
+URL: /documentation.html
+Timestamp: Sun Nov 23 2025 15:59:52 GMT+0100 (Mitteleuropäische Normalzeit)
+
+URL: /favicon.ico
+Timestamp: Sun Nov 23 2025 15:59:52 GMT+0100 (Mitteleuropäische Normalzeit)
+

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>Movie-API – Documentation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <header>
+    <h1>Movie-API – Documentation</h1>
+    <p>A simple RESTful backend for movie information and user favorites</p>
+  </header>
+  <main>
+    <section>
+      <h2>1. Overview</h2>
+      <p>
+        The <strong>Movie-API</strong> is a server-side application that provides information about movies,
+        their directors and genres. In addition, users can create a personal account and maintain
+        a list of their favorite movies.
+      </p>
+      <p>
+        The API is designed as a REST service and can be consumed by different clients (for example
+        a single-page application, a mobile app, or other services).
+      </p>
+    </section>
+
+    <section>
+      <h2>2. Main Resources</h2>
+      <h3>Movies</h3>
+      <p>
+        Movies are the central resource of the API. For each movie, the backend stores at least:
+      </p>
+      <ul>
+        <li>Title</li>
+        <li>Description</li>
+        <li>Genre</li>
+        <li>Director</li>
+        <li>Image URL (poster)</li>
+        <li>Whether the movie is featured or not</li>
+      </ul>
+
+      <h3>Genres</h3>
+      <p>
+        Genres describe the type of movie (for example <em>Thriller</em>, <em>Drama</em> or <em>Comedy</em>)
+        and include at least a short textual description.
+      </p>
+
+      <h3>Directors</h3>
+      <p>
+        For each director the API stores biographical information, such as:
+      </p>
+      <ul>
+        <li>Name</li>
+        <li>Bio</li>
+        <li>Year of birth</li>
+        <li>Year of death (if applicable)</li>
+      </ul>
+
+      <h3>Users</h3>
+      <p>
+        Users can register with the Movie-API in order to maintain their own profile and a list of
+        favorite movies. A user record contains for example:
+      </p>
+      <ul>
+        <li>Username</li>
+        <li>Password (stored securely)</li>
+        <li>Email</li>
+        <li>Date of birth</li>
+        <li>List of favorite movies</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>3. Example Endpoints</h2>
+      <p>
+        The following list shows typical REST endpoints that the Movie-API exposes.
+        These URLs are examples and can be adjusted to the final implementation.
+      </p>
+
+      <div class="endpoint-list">
+        <div class="endpoint">
+          <span class="method">GET</span>
+          <code>/movies</code> – return a list of all movies.
+        </div>
+        <div class="endpoint">
+          <span class="method">GET</span>
+          <code>/movies/:title</code> – return details about a single movie by its title.
+        </div>
+        <div class="endpoint">
+          <span class="method">GET</span>
+          <code>/genres/:name</code> – return information about a specific genre.
+        </div>
+        <div class="endpoint">
+          <span class="method">GET</span>
+          <code>/directors/:name</code> – return biographical information about a director.
+        </div>
+        <div class="endpoint">
+          <span class="method">POST</span>
+          <code>/users</code> – register a new user.
+        </div>
+        <div class="endpoint">
+          <span class="method">PUT</span>
+          <code>/users/:username</code> – update an existing user’s profile data.
+        </div>
+        <div class="endpoint">
+          <span class="method">POST</span>
+          <code>/users/:username/favorites/:movieId</code> – add a movie to the user’s favorites.
+        </div>
+        <div class="endpoint">
+          <span class="method">DELETE</span>
+          <code>/users/:username/favorites/:movieId</code> – remove a movie from the favorites list.
+        </div>
+        <div class="endpoint">
+          <span class="method">DELETE</span>
+          <code>/users/:username</code> – delete an existing user account.
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>4. Authentication & Security</h2>
+      <p>
+        The Movie-API is intended to be protected by user authentication. Only registered users
+        should be able to manage their profile and favorite movies. Typical implementations use
+        token-based authentication (JSON Web Tokens, JWT) and validate all incoming data to
+        keep the application and the stored user information secure.
+      </p>
+    </section>
+
+    <section>
+      <h2>5. Usage</h2>
+      <p>
+        A frontend application can use the Movie-API by sending HTTP requests to the endpoints
+        listed above. The API responds with JSON objects that contain the requested data or
+        confirmation messages for successful operations (for example after updating user
+        information or changing the list of favorite movies).
+      </p>
+      <p>
+        This documentation page is meant as a simple overview for developers who want to
+        understand what the Movie-API does and which resources it exposes.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Movie-API project documentation</p>
+  </footer>
+</body>
+</html>
+
