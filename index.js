@@ -55,7 +55,7 @@ let movies = [
 
 app.get('/', (req, res) => {
   res.setHeader('Content-Type', 'text/plain');
-  res.send('This is Movie API. Three endpoints are available:\n\n1. "/" displays this current message\n2. "/movies" returns an array of movies in JSON format\n3. "documentation.html" returns the full API documentation');
+  res.send('This is Movie API. Three endpoints are available:\n\n1. "/" displays this current message\n2. "/movies" returns an array of movies in JSON format\n3. "/documentation.html" returns the full API documentation');
 });
 
 app.get('/movies', (req, res) => {
