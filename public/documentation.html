@@ -4,6 +4,11 @@
   <meta charset="utf-8">
   <title>Movie-API – Documentation</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    table, th, td {
+      border: 1px solid;
+    }
+</style>
 </head>
 <body>
   <header>
@@ -71,50 +76,118 @@
     </section>
 
     <section>
-      <h2>3. Example Endpoints</h2>
+      <h2>3. Current API Endpoints</h2>
       <p>
-        The following list shows typical REST endpoints that the Movie-API exposes.
-        These URLs are examples and can be adjusted to the final implementation.
+        The following table shows the REST endpoints that the Movie-API exposes.
       </p>
 
-      <div class="endpoint-list">
-        <div class="endpoint">
-          <span class="method">GET</span>
-          <code>/movies</code> – return a list of all movies.
-        </div>
-        <div class="endpoint">
-          <span class="method">GET</span>
-          <code>/movies/:title</code> – return details about a single movie by its title.
-        </div>
-        <div class="endpoint">
-          <span class="method">GET</span>
-          <code>/genres/:name</code> – return information about a specific genre.
-        </div>
-        <div class="endpoint">
-          <span class="method">GET</span>
-          <code>/directors/:name</code> – return biographical information about a director.
-        </div>
-        <div class="endpoint">
-          <span class="method">POST</span>
-          <code>/users</code> – register a new user.
-        </div>
-        <div class="endpoint">
-          <span class="method">PUT</span>
-          <code>/users/:username</code> – update an existing user’s profile data.
-        </div>
-        <div class="endpoint">
-          <span class="method">POST</span>
-          <code>/users/:username/favorites/:movieId</code> – add a movie to the user’s favorites.
-        </div>
-        <div class="endpoint">
-          <span class="method">DELETE</span>
-          <code>/users/:username/favorites/:movieId</code> – remove a movie from the favorites list.
-        </div>
-        <div class="endpoint">
-          <span class="method">DELETE</span>
-          <code>/users/:username</code> – delete an existing user account.
-        </div>
-      </div>
+      <table>
+        <tr>
+          <th>Request</th>
+          <th>URL</th>
+          <th>HTTP Method</th>
+          <th>Request body data format</th>
+          <th>Response body data format</th>
+        </tr>
+        <tr>
+          <td>Get all movie data</td>
+          <td>/movies</td>
+          <td>GET</td>
+          <td>none</td>
+          <td>Array holding JSON objects with movie data</td>
+        </tr>
+        <tr>
+          <td>Get all user data</td>
+          <td>/users</td>
+          <td>GET</td>
+          <td>none</td>
+          <td>Array holding JSON objects with user data</td>
+        </tr>
+        <tr>
+          <td>Get all genre data</td>
+          <td>/genres</td>
+          <td>GET</td>
+          <td>none</td>
+          <td>Array holding JSON objects with genre data</td>
+        </tr>
+        <tr>
+          <td>Get all director data</td>
+          <td>/directors</td>
+          <td>GET</td>
+          <td>none</td>
+          <td>Array holding JSON objects with director data</td>
+        </tr>
+        <tr>
+          <td>Get single movie data</td>
+          <td>/movies/:name</td>
+          <td>GET</td>
+          <td>none</td>
+          <td>JSON object holding single movie data</td>
+        </tr>
+        <tr>
+          <td>Get single genre data</td>
+          <td>/genres/:name</td>
+          <td>GET</td>
+          <td>none</td>
+          <td>JSON object holding single genre data</td>
+        </tr>
+        <tr>
+          <td>Get single director data</td>
+          <td>/directors/:name</td>
+          <td>GET</td>
+          <td>none</td>
+          <td>JSON object holding single director data</td>
+        </tr>
+        <tr>
+          <td>Add data for new user</td>
+          <td>/users</td>
+          <td>POST</td>
+          <td>JSON object containing user data, example: <code>{"name": "Michael","email": "michael@email.net","favorites": ["Gladiator", "Point Break"]}</code></td>
+          <td>error message or new user data including v4 uuid, example: <code>{"name":"Michael","email":"michael@email.net","favorites": ["Gladiator","Point Break"],"id":"1abb2ef7-1e14-4dfb-bcd9-48bc5442d05f"}</code></td>
+        </tr>
+        <tr>
+          <td>Get single user by ID</td>
+          <td>/users/:id</td>
+          <td>GET</td>
+          <td>none</td>
+          <td>error message or JSON object holding single user data</td>
+        </tr>
+        <tr>
+          <td>Delete single user by ID</td>
+          <td>/users/:id</td>
+          <td>DEL</td>
+          <td>none</td>
+          <td>error message or success message containing former user ID</td>
+        </tr>
+        <tr>
+          <td>Update user name</td>
+          <td>/users/:id/user_name/:name</td>
+          <td>PUT</td>
+          <td>none</td>
+          <td>error message or success message stating the user name change</td>
+        </tr>
+        <tr>
+          <td>Update user email</td>
+          <td>/users/:id/user_email/:email</td>
+          <td>PUT</td>
+          <td>none</td>
+          <td>error message or success message stating the user email change</td>
+        </tr>
+        <tr>
+          <td>Add movie to user favorites</td>
+          <td>/users/:id/favorites/:title</td>
+          <td>PUT</td>
+          <td>none</td>
+          <td>Only shows placeholder message, handler needs to be set up</td>
+        </tr>
+        <tr>
+          <td>Remove movie from user favorites</td>
+          <td>/users/:id/favorites/:title</td>
+          <td>DEL</td>
+          <td>none</td>
+          <td>Only shows placeholder message, handler needs to be set up</td>
+        </tr>
+      </table>
     </section>
 
     <section>
