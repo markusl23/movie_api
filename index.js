@@ -261,11 +261,13 @@ app.delete('/users/:id/favorites/:title', (req, res) => {
   res.send('This is the Movie API endpoint to add a movie as a user favorite.');
 });
 
+// Error handling
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Something broke!');
 });
 
+// Server start
 app.listen(8080, () => {
   console.log('Your app is listening on port 8080.');
 })
