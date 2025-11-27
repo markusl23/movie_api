@@ -10,6 +10,7 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {f
 app.use(morgan('combined', {stream: accessLogStream}));
 
 app.use(express.json());
+app.use(express.static('public'));
 
 let movies = [
   {
