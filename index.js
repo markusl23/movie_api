@@ -48,16 +48,6 @@ app.get('/users', async (req, res) => {
     });
 });
 
-// Gets list of all genre data
-app.get('/genres', (req, res) => {
-  res.json(genres);
-});
-
-// Gets list of all director data
-app.get('/directors', (req, res) => {
-  res.json(directors);
-});
-
 // Gets data about single movie by title
 app.get('/movies/:title', (req, res) => {
   res.json(movies.find((movie) => {
