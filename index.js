@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(express.static('public'));
 app.use(express.urlencoded({extended: true}));
 
-mongoose.connect('mongodb://localhost:27017/movieAPI_DB', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb://localhost:27017/movieAPI_DB');
 
 // App routing for root endpoint
 app.get('/', (req, res) => {
