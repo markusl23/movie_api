@@ -49,10 +49,15 @@ app.get('/users', async (req, res) => {
 });
 
 // Gets data about single movie by title
-app.get('/movies/:title', (req, res) => {
-  res.json(movies.find((movie) => {
-    return movie.title === req.params.title;
-  }));
+app.get('/movies/:title', async (req, res) => {
+  await Movies.findOne({ Title: req.params.title })
+    .then((movie) => {
+      res.status(201).json(movie);
+    })
+    .catch ((err) => {
+      console.log(err);
+      res.status(500).send('Error: ' + err)
+    });
 });
 
 // Gets data about a genre by name
