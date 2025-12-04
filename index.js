@@ -14,6 +14,7 @@ const Users = Models.User;
 app.use(morgan('combined', {stream: accessLogStream}));
 app.use(express.json());
 app.use(express.static('public'));
+app.use(express.urlencoded({extended: true}));
 
 mongoose.connect('mongodb://localhost:27017/movieAPI_DB', {useNewUrlParser: true, useUnifiedTopology: true});
 
