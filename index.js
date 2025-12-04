@@ -4,7 +4,7 @@ const express = require("express"),
   path = require('path'),
   uuid = require('uuid'),
   mongoose = require('mongoose'),
-  models = require('./models.js');
+  Models = require('./models.js');
 
 const app = express();
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'});
