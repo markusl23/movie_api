@@ -2,13 +2,16 @@ const express = require("express"),
   morgan = require('morgan'),
   fs = require('fs'),
   path = require('path'),
-  uuid = require('uuid');
+  uuid = require('uuid'),
+  mongoose = require('mongoose'),
+  models = require('./models.js');
 
 const app = express();
-
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'});
-app.use(morgan('combined', {stream: accessLogStream}));
+const Movies = Models.Movie;
+const Users = Models.User;
 
+app.use(morgan('combined', {stream: accessLogStream}));
 app.use(express.json());
 app.use(express.static('public'));
 
