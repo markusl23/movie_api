@@ -37,8 +37,15 @@ app.get('/movies', async (req, res) => {
 });
 
 // Gets list of all user data
-app.get('/users', (req, res) => {
-  res.json(users);
+app.get('/users', async (req, res) => {
+  await Users.find()
+    .then((users) => {
+      res.status(201).json(users)
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 
 // Gets list of all genre data
