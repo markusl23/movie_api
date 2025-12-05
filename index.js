@@ -73,10 +73,15 @@ app.get('/genres/:name', async (req, res) => {
 });
 
 // Gets data about a director by name
-app.get('/directors/:name', (req, res) => {
-  res.json(directors.find((director) => {
-    return director.name === req.params.name;
-  }));
+app.get('/directors/:name', async (req, res) => {
+  await Movies.findOne({ 'Director.Name': req.params.name})
+    .then((movie) => {
+      res.status(201).json(movie.Director);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 
 // Adds data for new movie api user to user list (users array)
