@@ -84,6 +84,13 @@ app.get('/users', async (req, res) => {
     });
 });
 
+// Get single user data by ID
+app.get('/users/:id', (req, res) => {
+  res.json(users.find((user) => {
+    return user.id === req.params.id;
+  }));
+});
+
 // Adds data for new movie api user to user list (users array)
 app.post('/users', (req, res) => {
   let newUser = req.body;
@@ -95,13 +102,6 @@ app.post('/users', (req, res) => {
     users.push(newUser);
     res.status(201).send(newUser);
   }
-});
-
-// Get single user data by ID
-app.get('/users/:id', (req, res) => {
-  res.json(users.find((user) => {
-    return user.id === req.params.id;
-  }));
 });
 
 // Delete user from movie api user list by ID
