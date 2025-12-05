@@ -61,10 +61,15 @@ app.get('/movies/:title', async (req, res) => {
 });
 
 // Gets data about a genre by name
-app.get('/genres/:name', (req, res) => {
-  res.json(genres.find((genre) => {
-    return genre.name === req.params.name;
-  }));
+app.get('/genres/:name', async (req, res) => {
+  await Movies.findOne({ 'Genre.Name': req.params.name})
+    .then((movie) => {
+      res.status(201).json(movie.Genre);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 
 // Gets data about a director by name
