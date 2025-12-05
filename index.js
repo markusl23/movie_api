@@ -176,9 +176,18 @@ app.put('/users/:userId/FavoriteMovies/:movieId', async (req, res) => {
 });
 
 // Remove movie from user favorites
-app.delete('/users/:id/favorites/:title', (req, res) => {
-  res.setHeader('Content-Type', 'text/plain');
-  res.send('This is the Movie API endpoint to add a movie as a user favorite.');
+app.delete('/users/:userId/FavoriteMovies/:movieId', async (req, res) => {
+  await Users.findOneAndUpdate({ _id: req.params.userId }, {
+    $pull: { FavoriteMovies: req.params.movieId },
+  },
+  {new: true})
+    .then((updatedUser) => {
+      res.json(updatedUser);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 
 // Error handling
