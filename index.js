@@ -50,7 +50,7 @@ app.get('/movies/:title', async (req, res) => {
 
 // Gets data about a genre by name
 app.get('/genres/:name', async (req, res) => {
-  await Movies.findOne({ 'Genre.Name': req.params.name})
+  await Movies.findOne({ 'Genre.Name': req.params.name })
     .then((movie) => {
       res.status(201).json(movie.Genre);
     })
@@ -62,7 +62,7 @@ app.get('/genres/:name', async (req, res) => {
 
 // Gets data about a director by name
 app.get('/directors/:name', async (req, res) => {
-  await Movies.findOne({ 'Director.Name': req.params.name})
+  await Movies.findOne({ 'Director.Name': req.params.name })
     .then((movie) => {
       res.status(201).json(movie.Director);
     })
@@ -85,10 +85,15 @@ app.get('/users', async (req, res) => {
 });
 
 // Get single user data by ID
-app.get('/users/:id', (req, res) => {
-  res.json(users.find((user) => {
-    return user.id === req.params.id;
-  }));
+app.get('/users/:id', async (req, res) => {
+  await Users.findOne({ _id: req.params.id })
+    .then((user) => {
+      res.status(201).json(user);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send('Error: ' + err)
+    });
 });
 
 // Adds data for new movie api user to user list (users array)
