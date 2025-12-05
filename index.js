@@ -160,20 +160,6 @@ app.put('/users/:id/', async (req, res) => {
     });
 });
 
-// Update user email
-app.put('/users/:id/user_email/:email', (req, res) => {
-  let user = users.find((user) => {
-    return user.id === req.params.id;
-  });
-
-  if (user) {
-    user.email = req.params.email;
-    res.status(200).send('User with ID ' + req.params.id + ' was assigned the email address ' + req.params.email + '.');
-  } else {
-    res.status(404).send('Student with id' + req.params.id + ' was not found.');
-  }
-});
-
 // Add movie to user favorites
 app.put('/users/:id/favorites/:title', (req, res) => {
   res.setHeader('Content-Type', 'text/plain');
