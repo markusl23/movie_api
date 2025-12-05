@@ -88,6 +88,7 @@
           <th>HTTP Method</th>
           <th>Request body data format</th>
           <th>Response body data format</th>
+          <th>Request example</th>
         </tr>
         <tr>
           <td>Get all movie data</td>
@@ -95,27 +96,7 @@
           <td>GET</td>
           <td>none</td>
           <td>Array holding JSON objects with movie data</td>
-        </tr>
-        <tr>
-          <td>Get all user data</td>
-          <td>/users</td>
-          <td>GET</td>
-          <td>none</td>
-          <td>Array holding JSON objects with user data</td>
-        </tr>
-        <tr>
-          <td>Get all genre data</td>
-          <td>/genres</td>
-          <td>GET</td>
-          <td>none</td>
-          <td>Array holding JSON objects with genre data</td>
-        </tr>
-        <tr>
-          <td>Get all director data</td>
-          <td>/directors</td>
-          <td>GET</td>
-          <td>none</td>
-          <td>Array holding JSON objects with director data</td>
+          <td>/movies</td>
         </tr>
         <tr>
           <td>Get single movie data</td>
@@ -123,27 +104,39 @@
           <td>GET</td>
           <td>none</td>
           <td>JSON object holding single movie data</td>
+          <td>/movies/The%20Shawshank%20Redemption</td>
         </tr>
         <tr>
-          <td>Get single genre data</td>
-          <td>/genres/:name</td>
+          <td>Get genre data</td>
+          <td>/genres</td>
           <td>GET</td>
           <td>none</td>
-          <td>JSON object holding single genre data</td>
+          <td>Array holding JSON objects with genre data</td>
+          <td>/genres/Science%20Fiction</td>
         </tr>
         <tr>
-          <td>Get single director data</td>
-          <td>/directors/:name</td>
+          <td>Get director data</td>
+          <td>/directors</td>
           <td>GET</td>
           <td>none</td>
-          <td>JSON object holding single director data</td>
+          <td>Array holding JSON objects with director data</td>
+          <td>/directors/Peter%20Jackson</td>
+        </tr>
+        <tr>
+          <td>Get all user data</td>
+          <td>/users</td>
+          <td>GET</td>
+          <td>none</td>
+          <td>Array holding JSON objects with user data</td>
+          <td>/users</td>
         </tr>
         <tr>
           <td>Add data for new user</td>
           <td>/users</td>
           <td>POST</td>
-          <td>JSON object containing user data, example: <code>{"name": "Michael","email": "michael@email.net","favorites": ["Gladiator", "Point Break"]}</code></td>
-          <td>error message or new user data including v4 uuid, example: <code>{"name":"Michael","email":"michael@email.net","favorites": ["Gladiator","Point Break"],"id":"1abb2ef7-1e14-4dfb-bcd9-48bc5442d05f"}</code></td>
+          <td>JSON object containing user data, example: <code>{"Username": "Steve","Password": "1234567890","Email": "steve@email.net","Birthday": "","FavoriteMovies": []}</code></td>
+          <td>error message or new user data including v4 uuid, example: <code>{"Username": "Steve","Password": "1234567890","Email": "steve@email.net","Birthday": null,"FavoriteMovies": [],"_id": "6932cf4a897f849daa15080b","__v": 0}</code></td>
+          <td>see example for request body format</td>
         </tr>
         <tr>
           <td>Get single user by ID</td>
@@ -151,6 +144,7 @@
           <td>GET</td>
           <td>none</td>
           <td>error message or JSON object holding single user data</td>
+          <td>/users/692edde9e0104b0a96120e79</td>
         </tr>
         <tr>
           <td>Delete single user by ID</td>
@@ -158,34 +152,31 @@
           <td>DEL</td>
           <td>none</td>
           <td>error message or success message containing former user ID</td>
+          <td>/users/692edde9e0104b0a96120e79</td>
         </tr>
         <tr>
-          <td>Update user name</td>
+          <td>Update user data</td>
           <td>/users/:id/user_name/:name</td>
           <td>PUT</td>
-          <td>none</td>
-          <td>error message or success message stating the user name change</td>
-        </tr>
-        <tr>
-          <td>Update user email</td>
-          <td>/users/:id/user_email/:email</td>
-          <td>PUT</td>
-          <td>none</td>
-          <td>error message or success message stating the user email change</td>
+          <td>JSON object, example:<code>{"Username": "Steven","Password": "1234567890","Email": "steven@net.org","Birthday": "","FavoriteMovies": []}</code></td>
+          <td>error message or or JSON object showing the user data change</td>
+          <td>see example for request body format</td>
         </tr>
         <tr>
           <td>Add movie to user favorites</td>
-          <td>/users/:id/favorites/:title</td>
+          <td>/users/:userId/FavoriteMovies/:movieId</td>
           <td>PUT</td>
           <td>none</td>
-          <td>Only shows placeholder message, handler needs to be set up</td>
+          <td>user data JSON object showing the data change</td>
+          <td>/users/6932cf4a897f849daa15080b/FavoriteMovies/692ec7b2e0104b0a96120e6</td>
         </tr>
         <tr>
           <td>Remove movie from user favorites</td>
-          <td>/users/:id/favorites/:title</td>
+          <td>/users/:userId/FavoriteMovies/:movieId</td>
           <td>DEL</td>
           <td>none</td>
-          <td>Only shows placeholder message, handler needs to be set up</td>
+          <td>user data JSON object showing the data change</td>
+          <td>/users/6932cf4a897f849daa15080b/FavoriteMovies/692ec7b2e0104b0a96120e6</td>
         </tr>
       </table>
     </section>
