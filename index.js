@@ -97,16 +97,30 @@ app.get('/users/:id', async (req, res) => {
 });
 
 // Adds data for new movie api user to user list (users array)
-app.post('/users', (req, res) => {
-  let newUser = req.body;
-
-  if (!newUser || !newUser.name || !newUser.email) {
-    return res.status(400).send('Missing user data in request body, check name/email.');
-  } else {
-    newUser.id = uuid.v4();
-    users.push(newUser);
-    res.status(201).send(newUser);
-  }
+app.post('/users', async (req, res) => {
+  await Users.findOne({ Username: req.body.Username })
+    .then((user) => {
+      if (user) {
+        return res.status(400).send(req.body.Username + ' already exists');
+      } else {
+        Users.create({
+          Username: req.body.Username,
+          Password: req.body.Password,
+          Email: req.body.Email,
+          Birthday: req.body.Birthday,
+          FavoriteMovies: req.body.FavoriteMovies
+        })
+        .then((user) => { res.status(201).json(user)})
+      .catch((err) => {
+        console.log(err);
+        res.status(500).send('Error: ' + err);
+      })
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 
 // Delete user from movie api user list by ID
