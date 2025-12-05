@@ -139,18 +139,25 @@ app.delete('/users/:id', async (req, res) => {
     });
 });
 
-// Update user name
-app.put('/users/:id/user_name/:name', (req, res) => {
-  let user = users.find((user) => {
-    return user.id === req.params.id;
-  });
-
-  if (user) {
-    user.name = req.params.name;
-    res.status(200).send('User with ID ' + req.params.id + ' was assigned the name ' + req.params.name + '.');
-  } else {
-    res.status(404).send('Student with id' + req.params.id + ' was not found.');
-  }
+// Update user data
+app.put('/users/:id/', async (req, res) => {
+  await Users.findOneAndUpdate({ _id: req.params.id }, {
+    $set: {
+      Username: req.body.Username,
+      Password: req.body.Password,
+      Email: req.body.Email,
+      Birthday: req.body.Birthday,
+      FavoriteMovies: req.body.FavoriteMovies
+    }
+  },
+  { new: true })
+    .then((updatedUser) => {
+      res.json(updatedUser);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 
 // Update user email
