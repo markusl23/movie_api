@@ -124,19 +124,19 @@ app.post('/users', async (req, res) => {
 });
 
 // Delete user from movie api user list by ID
-app.delete('/users/:id', (req, res) => {
-  let user = users.find((user) => {
-    return user.id === req.params.id;
-  });
-
-  if (user) {
-    users = users.filter((obj) => {
-      return obj.id !== req.params.id;
+app.delete('/users/:id', async (req, res) => {
+  await Users.deleteOne({ _id: req.params.id })
+    .then((user) => {
+      if (!user) {
+        res.status(400).send('User with ID ' + req.params.id + ' was not found');
+      } else {
+        res.status(200).send('User with ID ' + req.params.id + ' was deleted');
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send('Error: ' + err);
     });
-    res.status(200).send('User ' + req.params.id + ' was deleted.');
-  } else {
-    res.status(404).send('User not found');
-  }
 });
 
 // Update user name
