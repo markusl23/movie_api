@@ -65,7 +65,7 @@ app.get('/genres/:name', passport.authenticate('jwt', { session: false }), async
 });
 
 // Gets data about a director by name
-app.get('/directors/:name', async (req, res) => {
+app.get('/directors/:name', passport.authenticate('jwt', { session: false }), async (req, res) => {
   await Movies.findOne({ 'Director.Name': req.params.name })
     .then((movie) => {
       res.status(201).json(movie.Director);
