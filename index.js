@@ -185,8 +185,8 @@ app.delete('/users/:username/FavoriteMovies/:movieid', passport.authenticate('jw
   if (req.user.Username !== req.params.username) {
     return res.status(400).send('Permission denied!');
   }
-  await Users.findOneAndUpdate({ _id: req.params.userId }, {
-    $pull: { FavoriteMovies: req.params.movieId },
+  await Users.findOneAndUpdate({ Username: req.params.username }, {
+    $pull: { FavoriteMovies: req.params.movieid },
   },
   {new: true})
     .then((updatedUser) => {
