@@ -163,9 +163,12 @@ app.put('/users/:username/', passport.authenticate('jwt', { session: false }), a
 });
 
 // Add movie to user favorites
-app.put('/users/:userId/FavoriteMovies/:movieId', async (req, res) => {
-  await Users.findOneAndUpdate({ _id: req.params.userId }, {
-    $push: { FavoriteMovies: req.params.movieId },
+app.put('/users/:username/FavoriteMovies/:movieid', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  if (req.user.Username !== req.params.username) {
+    return res.status(400).send('Permission denied!');
+  }
+  await Users.findOneAndUpdate({ Username: req.params.username }, {
+    $push: { FavoriteMovies: req.params.movieid },
   },
   {new: true})
     .then((updatedUser) => {
