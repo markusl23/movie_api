@@ -181,7 +181,10 @@ app.put('/users/:username/FavoriteMovies/:movieid', passport.authenticate('jwt',
 });
 
 // Remove movie from user favorites
-app.delete('/users/:userId/FavoriteMovies/:movieId', async (req, res) => {
+app.delete('/users/:userId/FavoriteMovies/:movieId', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  if (req.user.Username !== req.params.username) {
+    return res.status(400).send('Permission denied!');
+  }
   await Users.findOneAndUpdate({ _id: req.params.userId }, {
     $pull: { FavoriteMovies: req.params.movieId },
   },
