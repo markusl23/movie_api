@@ -145,11 +145,11 @@ app.delete('/users/:id', async (req, res) => {
 });
 
 // Update user data
-app.put('/users/:id/', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  if (req.user._id !== req.params.id) {
+app.put('/users/:username/', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  if (req.user.Username !== req.params.username) {
     return res.status(400).send('Permission denied!');
   }
-  await Users.findOneAndUpdate({ _id: req.params.id }, {
+  await Users.findOneAndUpdate({ Username: req.params.username }, {
     $set: {
       Username: req.body.Username,
       Password: req.body.Password,
