@@ -76,18 +76,6 @@ app.get('/directors/:name', passport.authenticate('jwt', { session: false }), as
     });
 });
 
-// Gets list of all user data
-app.get('/users', async (req, res) => {
-  await Users.find()
-    .then((users) => {
-      res.status(201).json(users)
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).send('Error: ' + err);
-    });
-});
-
 // Get single user data by ID
 app.get('/users/:id', async (req, res) => {
   await Users.findOne({ _id: req.params.id })
