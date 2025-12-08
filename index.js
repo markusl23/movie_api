@@ -76,9 +76,12 @@ app.get('/directors/:name', passport.authenticate('jwt', { session: false }), as
     });
 });
 
-// Get single user data by ID
-app.get('/users/:id', async (req, res) => {
-  await Users.findOne({ _id: req.params.id })
+// Get single user data by username
+app.get('/users/:username', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  if (req.user.Username !== req.params.username) {
+    return res.status(400).send('Permission denied!');
+  }
+  await Users.findOne({ Username: req.params.username })
     .then((user) => {
       res.status(201).json(user);
     })
