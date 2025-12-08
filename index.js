@@ -119,14 +119,17 @@ app.post('/users', async (req, res) => {
     });
 });
 
-// Delete user from movie api user list by ID
-app.delete('/users/:id', async (req, res) => {
-  await Users.deleteOne({ _id: req.params.id })
+// Delete user from movie api user list by name
+app.delete('/users/:username', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  if (req.user.Username !== req.params.username) {
+    return res.status(400).send('Permission denied!');
+  }
+  await Users.deleteOne({ Username: req.params.username })
     .then((user) => {
       if (!user) {
-        res.status(400).send('User with ID ' + req.params.id + ' was not found');
+        res.status(400).send('User with username ' + req.params.username + ' was not found');
       } else {
-        res.status(200).send('User with ID ' + req.params.id + ' was deleted');
+        res.status(200).send('User with username ' + req.params.username + ' was deleted');
       }
     })
     .catch((err) => {
