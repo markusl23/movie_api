@@ -16,6 +16,10 @@ app.use(express.json());
 app.use(express.static('public'));
 app.use(express.urlencoded({extended: true}));
 
+const auth = require('./auth.js');
+const passport = require('passport');
+require('./passport.js');
+
 mongoose.connect('mongodb://localhost:27017/movieAPI_DB');
 
 // App routing for root endpoint
