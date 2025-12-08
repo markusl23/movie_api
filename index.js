@@ -110,7 +110,8 @@ app.post('/users', async (req, res) => {
           Birthday: req.body.Birthday,
           FavoriteMovies: req.body.FavoriteMovies
         })
-        .then((user) => { res.status(201).json(user)})
+        .then((user) => { return Users.findById(user._id).select('-Password'); })
+        .then((userDataWithoutPassword) => { res.status(201).json(userDataWithoutPassword); })
       .catch((err) => {
         console.log(err);
         res.status(500).send('Error: ' + err);
