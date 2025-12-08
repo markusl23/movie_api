@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(express.static('public'));
 app.use(express.urlencoded({extended: true}));
 
-const auth = require('./auth.js');
+const auth = require('./auth.js')(app);
 const passport = require('passport');
 require('./passport.js');
 
