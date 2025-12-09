@@ -41,7 +41,7 @@ passport.use(new JWTStrategy({
   // NEEDS TO BE CHANGED/REMOVED FOR PUBLIC DEPLOYMENT!!
   secretOrKey: 'a~UwYAW2R2jMBcnjt~jGl66LIsk7jRZsGeiTkdFSC-'
 }, async (jwtPayload, callback) => {
-  return await Users.findById(jwtPayload._id)
+  return await Users.findById(jwtPayload.id)
     .then((user) => {
       return callback(null, user);
     })

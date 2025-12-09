@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken'),
 require('./passport.js');
 
 let generateJWTToken = (user) => {
-  return jwt.sign(user, jwtSecret, {
+  return jwt.sign({ id: user._id }, jwtSecret, {
     subject: user.Username,
     expiresIn: '7d',
     algorithm: 'HS256'
