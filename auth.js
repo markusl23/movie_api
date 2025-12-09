@@ -1,3 +1,4 @@
+// NEEDS TO BE CHANGED/REMOVED FOR PUBLIC DEPLOYMENT!!
 const jwtSecret = 'a~UwYAW2R2jMBcnjt~jGl66LIsk7jRZsGeiTkdFSC-';
 
 const jwt = require('jsonwebtoken'),
