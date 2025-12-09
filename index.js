@@ -17,7 +17,19 @@ app.use(express.static('public'));
 app.use(express.urlencoded({extended: true}));
 
 const cors = require('cors');
-app.use(cors());
+// ADD ACTUAL TEST SITE!!
+let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      let message = 'The CORS policy for this application does not allow access from origin ' + origin;
+      return callback(new Error(message), false);
+    }
+    return callback(null, true);
+  }
+}));
 
 const auth = require('./auth.js')(app);
 const passport = require('passport');
@@ -96,6 +108,7 @@ app.get('/users/:username', passport.authenticate('jwt', { session: false }), as
 
 // Adds data for new movie api user to user list (users array)
 app.post('/users', async (req, res) => {
+  let hashedPassword = Users.hashPassword(req.body.Password);
   await Users.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {
@@ -103,7 +116,7 @@ app.post('/users', async (req, res) => {
       } else {
         Users.create({
           Username: req.body.Username,
-          Password: req.body.Password,
+          Password: hashedPassword,
           Email: req.body.Email,
           Birthday: req.body.Birthday,
           FavoriteMovies: req.body.FavoriteMovies
@@ -146,10 +159,11 @@ app.put('/users/:username/', passport.authenticate('jwt', { session: false }), a
   if (req.user.Username !== req.params.username) {
     return res.status(400).send('Permission denied!');
   }
+  let hashedPassword = Users.hashPassword(req.body.Password);
   await Users.findOneAndUpdate({ Username: req.params.username }, {
     $set: {
       Username: req.body.Username,
-      Password: req.body.Password,
+      Password: hashedPassword,
       Email: req.body.Email,
       Birthday: req.body.Birthday,
       FavoriteMovies: req.body.FavoriteMovies
