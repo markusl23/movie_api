@@ -16,6 +16,9 @@ app.use(express.json());
 app.use(express.static('public'));
 app.use(express.urlencoded({extended: true}));
 
+const cors = require('cors');
+app.use(cors());
+
 const auth = require('./auth.js')(app);
 const passport = require('passport');
 require('./passport.js');
