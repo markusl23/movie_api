@@ -170,11 +170,6 @@ app.put('/users/:username/', passport.authenticate('jwt', { session: false }), a
     }
   },
   { new: true })
-    /*
-    .then((updatedUser) => {
-      res.json(updatedUser);
-    })
-    */
     .then((updatedUser) => { return Users.findById(updatedUser._id).select('-Password'); })
         .then((userDataWithoutPassword) => { res.status(201).json(userDataWithoutPassword); })
     .catch((err) => {
