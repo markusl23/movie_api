@@ -97,9 +97,8 @@ app.get('/users/:username', passport.authenticate('jwt', { session: false }), as
     return res.status(400).send('Permission denied!');
   }
   await Users.findOne({ Username: req.params.username })
-    .then((user) => {
-      res.status(201).json(user);
-    })
+    .then((user) => { return Users.findById(user._id).select('-Password'); })
+      .then((userDataWithoutPassword) => { res.status(201).json(userDataWithoutPassword); })
     .catch((err) => {
       console.log(err);
       res.status(500).send('Error: ' + err)
