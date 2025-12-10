@@ -111,7 +111,7 @@ app.get('/users/:username', passport.authenticate('jwt', { session: false }), as
 app.post('/users', [
   check('Username', 'Username is required.').not().isEmpty(),
   check('Username', 'Username contains non-alphanumeric characters, not allowed.').isAlphanumeric(),
-  check('Password', 'Password minimum length is eight characters.')isLength({ min: 8 }),
+  check('Password', 'Password minimum length is eight characters.').isLength({ min: 8 }),
   check('Email', 'Email address format does not appear to be valid.').isEmail()
 ], async (req, res) => {
   let errors = validationResult(req);
