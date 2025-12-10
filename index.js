@@ -113,13 +113,13 @@ app.post('/users', [
   check('Username', 'Username contains non-alphanumeric characters, not allowed.').isAlphanumeric(),
   check('Password', 'Password minimum length is eight characters.').isLength({ min: 8 }),
   check('Email', 'Email address format does not appear to be valid.').isEmail(),
-  check('Birthday', 'Birthday must be a valid date. (YYYY-MM-DD)').isDate()
+  check('Birthday', 'Birthday must be a valid date. (YYYY-MM-DD)').isDate().optional({ checkFalsy: true })
 ], async (req, res) => {
   let errors = validationResult(req);
 
   if (!errors.isEmpty()) {
     return res.status(422).json({  errors: errors.array() });
-  }
+  };
 
   let hashedPassword = Users.hashPassword(req.body.Password);
   await Users.findOne({ Username: req.body.Username })
@@ -168,10 +168,23 @@ app.delete('/users/:username', passport.authenticate('jwt', { session: false }),
 });
 
 // Update user data
-app.put('/users/:username/', passport.authenticate('jwt', { session: false }), async (req, res) => {
+app.put('/users/:username/', [
+  check('Username', 'Username is required.').not().isEmpty(),
+  check('Username', 'Username contains non-alphanumeric characters, not allowed.').isAlphanumeric(),
+  check('Password', 'Password minimum length is eight characters.').isLength({ min: 8 }),
+  check('Email', 'Email address format does not appear to be valid.').isEmail(),
+  check('Birthday', 'Birthday must be a valid date. (YYYY-MM-DD)').isDate().optional({ checkFalsy: true })
+], passport.authenticate('jwt', { session: false }), async (req, res) => {
   if (req.user.Username !== req.params.username) {
     return res.status(400).send('Permission denied!');
-  }
+  };
+
+  let errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({  errors: errors.array() });
+  };
+
   let hashedPassword = Users.hashPassword(req.body.Password);
   await Users.findOneAndUpdate({ Username: req.params.username }, {
     $set: {
