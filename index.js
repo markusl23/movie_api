@@ -112,7 +112,8 @@ app.post('/users', [
   check('Username', 'Username is required.').not().isEmpty(),
   check('Username', 'Username contains non-alphanumeric characters, not allowed.').isAlphanumeric(),
   check('Password', 'Password minimum length is eight characters.').isLength({ min: 8 }),
-  check('Email', 'Email address format does not appear to be valid.').isEmail()
+  check('Email', 'Email address format does not appear to be valid.').isEmail(),
+  check('Birthday', 'Birthday must be a valid date. (YYYY-MM-DD)').isDate()
 ], async (req, res) => {
   let errors = validationResult(req);
 
