@@ -170,7 +170,7 @@ app.put('/users/:username/', passport.authenticate('jwt', { session: false }), a
   },
   { new: true })
     .then((updatedUser) => { return Users.findById(updatedUser._id).select('-Password'); })
-        .then((userDataWithoutPassword) => { res.status(201).json(userDataWithoutPassword); })
+      .then((userDataWithoutPassword) => { res.status(201).json(userDataWithoutPassword); })
     .catch((err) => {
       console.log(err);
       res.status(500).send('Error: ' + err);
@@ -186,9 +186,8 @@ app.put('/users/:username/FavoriteMovies/:movieid', passport.authenticate('jwt',
     $push: { FavoriteMovies: req.params.movieid },
   },
   {new: true})
-    .then((updatedUser) => {
-      res.json(updatedUser);
-    })
+    .then((updatedUser) => { return Users.findById(updatedUser._id).select('-Password'); })
+      .then((userDataWithoutPassword) => { res.status(201).json(userDataWithoutPassword); })
     .catch((err) => {
       console.log(err);
       res.status(500).send('Error: ' + err);
@@ -204,9 +203,8 @@ app.delete('/users/:username/FavoriteMovies/:movieid', passport.authenticate('jw
     $pull: { FavoriteMovies: req.params.movieid },
   },
   {new: true})
-    .then((updatedUser) => {
-      res.json(updatedUser);
-    })
+    .then((updatedUser) => { return Users.findById(updatedUser._id).select('-Password'); })
+      .then((userDataWithoutPassword) => { res.status(201).json(userDataWithoutPassword); })
     .catch((err) => {
       console.log(err);
       res.status(500).send('Error: ' + err);
