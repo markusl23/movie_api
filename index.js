@@ -16,6 +16,8 @@ app.use(express.json());
 app.use(express.static('public'));
 app.use(express.urlencoded({extended: true}));
 
+const { check, validationResult } = require('express-validator');
+
 const cors = require('cors');
 // ADD ACTUAL TEST SITE!!
 let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
