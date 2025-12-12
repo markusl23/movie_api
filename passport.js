@@ -42,8 +42,7 @@ passport.use(
 
 passport.use(new JWTStrategy({
   jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-  // NEEDS TO BE CHANGED/REMOVED FOR PUBLIC DEPLOYMENT!!
-  secretOrKey: 'a~UwYAW2R2jMBcnjt~jGl66LIsk7jRZsGeiTkdFSC-'
+  secretOrKey: process.env.JWT_SECRET
 }, async (jwtPayload, callback) => {
   return await Users.findById(jwtPayload.id)
     .then((user) => {
