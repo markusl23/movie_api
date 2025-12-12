@@ -1,4 +1,3 @@
-// NEEDS TO BE CHANGED/REMOVED FOR PUBLIC DEPLOYMENT!!
 const jwtSecret = process.env.JWT_SECRET;
 
 const jwt = require('jsonwebtoken'),
