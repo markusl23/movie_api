@@ -19,7 +19,9 @@ app.use(express.urlencoded({extended: true}));
 const { check, validationResult } = require('express-validator');
 
 const cors = require('cors');
-// ADD ACTUAL TEST SITE!!
+app.use(cors());
+// Add actual CORS policy in the future!
+/*
 let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
 
 app.use(cors({
@@ -32,6 +34,7 @@ app.use(cors({
     return callback(null, true);
   }
 }));
+*/
 
 const auth = require('./auth.js')(app);
 const passport = require('passport');
