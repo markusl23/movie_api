@@ -37,7 +37,8 @@ const auth = require('./auth.js')(app);
 const passport = require('passport');
 require('./passport.js');
 
-mongoose.connect('mongodb://localhost:27017/movieAPI_DB');
+// mongoose.connect('mongodb://localhost:27017/movieAPI_DB');
+mongoose.connect(process.env.CONNECTION_URI);
 
 // App routing for root endpoint
 app.get('/', (req, res) => {
