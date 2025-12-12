@@ -1,5 +1,5 @@
 // NEEDS TO BE CHANGED/REMOVED FOR PUBLIC DEPLOYMENT!!
-const jwtSecret = 'a~UwYAW2R2jMBcnjt~jGl66LIsk7jRZsGeiTkdFSC-';
+const jwtSecret = process.env.JWT_SECRET;
 
 const jwt = require('jsonwebtoken'),
   passport = require('passport');
