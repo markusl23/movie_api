@@ -58,7 +58,7 @@ A user record contains:
 | Request Description | URL | Method | Request Body | Response Format | Example |
 |---------------------|------|--------|--------------|-----------------|---------|
 | **Get all movies** | `/movies` | GET | none | Array of movie objects | `/movies` |
-| **Get single movie by title** | `/movies/:name` | GET | none | Movie JSON object | `/movies/The%20Shawshank%20Redemption` |
+| **Get single movie by id** | `/movies/:movieid` | GET | none | Movie JSON object | `/movies/692ec929e0104b0a96120e6a` |
 | **Get genre data** | `/genres/:name` | GET | none | Genre JSON | `/genres/Science%20Fiction` |
 | **Get director data** | `/directors/:name` | GET | none | Director JSON | `/directors/Peter%20Jackson` |
 | **Register new user** | `/users` | POST | JSON object containing user data | New user JSON (without password) or error | see below |
