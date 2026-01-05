@@ -63,7 +63,7 @@ app.get('/movies', passport.authenticate('jwt', { session: false }), async (req,
 
 // Gets data about single movie by title
 app.get('/movies/:movieid', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  await Movies.findOne({ Title: req.params.movieid })
+  await Movies.findOne({ _id: req.params.movieid })
     .then((movie) => {
       res.status(201).json(movie);
     })
