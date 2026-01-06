@@ -131,6 +131,14 @@
           <td>see example for request body format</td>
         </tr>
         <tr>
+          <td>User login</td>
+          <td>/login</td>
+          <td>POST</td>
+          <td>JSON object containing user data, example: {"Username": "Luca", "Password": "12345678", "Email": "luca@email.net", "Birthday": "", "FavoriteMovies": []}</td>
+          <td>JSON object containing user & JWT token, example: {"username": "Luca", "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NWJlNzFmOGFmZDg5M2U0MjgzODQ1YyIsImlhdCI6MTc2NzcxOTUyNywiZXhwIjoxNzY4MzI0MzI3LCJzdWIiOiJtYXJrdXMzIn0.HQGypO0Fd9xLb4beLyLuTnVvG3YHLyIZBtY_AO-kips"} or error</td>
+          <td>see example for request body format</td>
+        </tr>
+        <tr>
           <td>Get single user by name</td>
           <td>/users/:username</td>
           <td>GET</td>
