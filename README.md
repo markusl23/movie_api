@@ -62,6 +62,7 @@ A user record contains:
 | **Get genre data** | `/genres/:name` | GET | none | Genre JSON | `/genres/Science%20Fiction` |
 | **Get director data** | `/directors/:name` | GET | none | Director JSON | `/directors/Peter%20Jackson` |
 | **Register new user** | `/users` | POST | JSON object containing user data | New user JSON (without password) or error | see below |
+| **User login** | `/login` | POST | JSON object containing user data, example: {"Username": "Luca", "Password": "12345678", "Email": "luca@email.net", "Birthday": "", "FavoriteMovies": []} | JSON object containing user & JWT token, example: {"username": "Luca", "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NWJlNzFmOGFmZDg5M2U0MjgzODQ1YyIsImlhdCI6MTc2NzcxOTUyNywiZXhwIjoxNzY4MzI0MzI3LCJzdWIiOiJtYXJrdXMzIn0.HQGypO0Fd9xLb4beLyLuTnVvG3YHLyIZBtY_AO-kips"}  | see below |
 | **Get single user by username** | `/users/:username` | GET | none | User JSON | `/users/Michael` |
 | **Delete user by username** | `/users/:username` | DELETE | none | Success message or error | `/users/Michael` |
 | **Update user data** | `/users/:username` | PUT | JSON user object | Updated user JSON | see below |
