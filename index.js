@@ -99,10 +99,12 @@ app.get('/directors/:name', passport.authenticate('jwt', { session: false }), as
 
 // Get single user data by user id
 app.get('/users/:userid', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  if (req.user._id !== req.params.userid) {
+  let objectUserId = req.user._id;
+  let stringUserId = objectUserId.toString();
+  if (stringUserId !== req.params.userid) {
     return res.status(400).send('Permission denied!');
   }
-  await Users.findOne({ _id: req.params.userid })
+  await Users.findOne({ _id: objectUserId })
     .then((user) => { return Users.findById(user._id).select('-Password'); })
       .then((userDataWithoutPassword) => { res.status(201).json(userDataWithoutPassword); })
     .catch((err) => {
