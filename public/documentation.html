@@ -135,48 +135,48 @@
           <td>/login</td>
           <td>POST</td>
           <td>JSON object containing user data, example: {"Username": "Luca", "Password": "12345678", "Email": "luca@email.net", "Birthday": "", "FavoriteMovies": []}</td>
-          <td>JSON object containing user & JWT token, example: {"username": "Luca", "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NWJlNzFmOGFmZDg5M2U0MjgzODQ1YyIsImlhdCI6MTc2NzcxOTUyNywiZXhwIjoxNzY4MzI0MzI3LCJzdWIiOiJtYXJrdXMzIn0.HQGypO0Fd9xLb4beLyLuTnVvG3YHLyIZBtY_AO-kips"} or error</td>
+          <td>JSON object containing user & JWT token, example: {"userid": "695e81c0d436268acb955347", "username": "Luca", "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NWJlNzFmOGFmZDg5M2U0MjgzODQ1YyIsImlhdCI6MTc2NzcxOTUyNywiZXhwIjoxNzY4MzI0MzI3LCJzdWIiOiJtYXJrdXMzIn0.HQGypO0Fd9xLb4beLyLuTnVvG3YHLyIZBtY_AO-kips"} or error</td>
           <td>see example for request body format</td>
         </tr>
         <tr>
-          <td>Get single user by name</td>
-          <td>/users/:username</td>
+          <td>Get single user by user id</td>
+          <td>/users/:userid</td>
           <td>GET</td>
           <td>none</td>
-          <td>error message or JSON object holding single user data</td>
-          <td>/users/Michael</td>
+          <td>User JSON, example: {"_id": "695e81c0d436268acb955347", "Username": "test3", "Email": "test3@mail.org", "Birthday": "2000-12-12T00:00:00.000Z", "FavoriteMovies": [], "__v": 0} or error</td>
+          <td>/users/695e81c0d436268acb955347</td>
         </tr>
         <tr>
-          <td>Delete single user by name</td>
-          <td>/users/:username</td>
+          <td>Delete single user by user id</td>
+          <td>/users/:userid</td>
           <td>DEL</td>
           <td>none</td>
           <td>error message or success message containing former user ID</td>
-          <td>/users/Michael</td>
+          <td>/users/695e81c0d436268acb955347</td>
         </tr>
         <tr>
-          <td>Update user data</td>
-          <td>/users/:username</td>
+          <td>Update user data by user id</td>
+          <td>/users/:userid</td>
           <td>PUT</td>
           <td>JSON object, example:<code>{"Username": "Steven","Password": "1234567890","Email": "steven@net.org","Birthday": "","FavoriteMovies": []}</code></td>
           <td>error message or or JSON object showing the user data change</td>
-          <td>see example for request body format</td>
+          <td>/users/695e81c0d436268acb955347</td>
         </tr>
         <tr>
-          <td>Add movie to user favorites</td>
-          <td>/users/:username/FavoriteMovies/:movieid</td>
+          <td>Add movie to user favorites by user id</td>
+          <td>/users/:userid/FavoriteMovies/:movieid</td>
           <td>PUT</td>
           <td>none</td>
-          <td>user data JSON object showing the data change</td>
-          <td>/users/Michael/FavoriteMovies/692ec7b2e0104b0a96120e6</td>
+          <td>Updated user JSON, example: {"_id": "695e81c0d436268acb955347", "Username": "test5", "Email": "test5@example.com", "Birthday": "2000-12-12T00:00:00.000Z", "FavoriteMovies": ["692ec5e5e0104b0a96120e68"], "__v": 0} or error</td>
+          <td>/users/695e81c0d436268acb955347/FavoriteMovies/692ec7b2e0104b0a96120e6</td>
         </tr>
         <tr>
-          <td>Remove movie from user favorites</td>
+          <td>Remove movie from user favorites by user id</td>
           <td>/users/:userId/FavoriteMovies/:movieId</td>
           <td>DEL</td>
           <td>none</td>
-          <td>user data JSON object showing the data change</td>
-          <td>/users/Michael/FavoriteMovies/692ec7b2e0104b0a96120e6</td>
+          <td>Updated user JSON, example: {"_id": "695e81c0d436268acb955347", "Username": "test5", "Email": "test5@example.com", "Birthday": "2000-12-12T00:00:00.000Z", "FavoriteMovies": [], "__v": 0} or error</td>
+          <td>/users/695e81c0d436268acb955347/FavoriteMovies/692ec7b2e0104b0a96120e6</td>
         </tr>
       </table>
     </section>

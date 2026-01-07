@@ -62,12 +62,12 @@ A user record contains:
 | **Get genre data** | `/genres/:name` | GET | none | Genre JSON | `/genres/Science%20Fiction` |
 | **Get director data** | `/directors/:name` | GET | none | Director JSON | `/directors/Peter%20Jackson` |
 | **Register new user** | `/users` | POST | JSON object containing user data | New user JSON (without password) or error | see example for request body format |
-| **User login** | `/login` | POST | JSON object containing user data, example: {"Username": "Luca", "Password": "12345678", "Email": "luca@email.net", "Birthday": "", "FavoriteMovies": []} | JSON object containing user & JWT token, example: {"username": "Luca", "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NWJlNzFmOGFmZDg5M2U0MjgzODQ1YyIsImlhdCI6MTc2NzcxOTUyNywiZXhwIjoxNzY4MzI0MzI3LCJzdWIiOiJtYXJrdXMzIn0.HQGypO0Fd9xLb4beLyLuTnVvG3YHLyIZBtY_AO-kips"} or error  | see example for request body format |
-| **Get single user by username** | `/users/:username` | GET | none | User JSON | `/users/Michael` |
-| **Delete user by username** | `/users/:username` | DELETE | none | Success message or error | `/users/Michael` |
-| **Update user data** | `/users/:username` | PUT | JSON user object | Updated user JSON | see below |
-| **Add movie to favorites** | `/users/:username/FavoriteMovies/:movieid` | PUT | none | Updated user JSON | `/users/Michael/FavoriteMovies/692ec7b2e0104b0a96120e6` |
-| **Remove movie from favorites** | `/users/:username/FavoriteMovies/:movieid` | DELETE | none | Updated user JSON | `/users/Michael/FavoriteMovies/692ec7b2e0104b0a96120e6` |
+| **User login** | `/login` | POST | JSON object containing user data, example: {"Username": "Luca", "Password": "12345678", "Email": "luca@email.net", "Birthday": "", "FavoriteMovies": []} | JSON object containing user & JWT token, example: {"userid": "695e81c0d436268acb955347", "username": "Luca", "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NWJlNzFmOGFmZDg5M2U0MjgzODQ1YyIsImlhdCI6MTc2NzcxOTUyNywiZXhwIjoxNzY4MzI0MzI3LCJzdWIiOiJtYXJrdXMzIn0.HQGypO0Fd9xLb4beLyLuTnVvG3YHLyIZBtY_AO-kips"} or error  | see example for request body format |
+| **Get single user by user id** | `/users/:userid` | GET | none | User JSON, example: {"_id": "695e81c0d436268acb955347", "Username": "test3", "Email": "test3@mail.org", "Birthday": "2000-12-12T00:00:00.000Z", "FavoriteMovies": [], "__v": 0} or error | `/users/695e81c0d436268acb955347` |
+| **Delete user by user id** | `/users/:userid` | DELETE | none | Success message or error | `/users/695e81c0d436268acb955347` |
+| **Update user data by user id** | `/users/:userid` | PUT | JSON user object, example: {"Username": "test5", "Password": "00000000", "Email": "test5@example.com"} | Updated user JSON, example: {"_id": "695e81c0d436268acb955347", "Username": "test5", "Email": "test5@example.com", "Birthday": "2000-12-12T00:00:00.000Z", "FavoriteMovies": [], "__v": 0} or error | `/users/695e81c0d436268acb955347` |
+| **Add movie to favorites** | `/users/:userid/FavoriteMovies/:movieid` | PUT | none | Updated user JSON, example: {"_id": "695e81c0d436268acb955347", "Username": "test5", "Email": "test5@example.com", "Birthday": "2000-12-12T00:00:00.000Z", "FavoriteMovies": ["692ec5e5e0104b0a96120e68"], "__v": 0} or error | `/users/695e81c0d436268acb955347/FavoriteMovies/692ec5e5e0104b0a96120e68` |
+| **Remove movie from favorites** | `/users/:userid/FavoriteMovies/:movieid` | DELETE | none | Updated user JSON, example: {"_id": "695e81c0d436268acb955347", "Username": "test5", "Email": "test5@example.com", "Birthday": "2000-12-12T00:00:00.000Z", "FavoriteMovies": [], "__v": 0} or error | `/users/695e81c0d436268acb955347/FavoriteMovies/692ec7b2e0104b0a96120e6` |
 
 ### 📥 Example: Registering a new user (POST `/users`)
 
