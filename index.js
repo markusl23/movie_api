@@ -156,10 +156,12 @@ app.post('/users', [
 
 // Delete user from movie api user list by user id
 app.delete('/users/:userid', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  if (req.user._id !== req.params.userid) {
+  let objectUserId = req.user._id;
+  let stringUserId = objectUserId.toString();
+  if (stringUserId !== req.params.userid) {
     return res.status(400).send('Permission denied!');
   }
-  await Users.deleteOne({ _id: req.params.userid })
+  await Users.deleteOne({ _id: objectUserId })
     .then((user) => {
       if (!user) {
         res.status(400).send('User with username ' + req.params.username + ' was not found');
@@ -181,7 +183,9 @@ app.put('/users/:userid/', [
   check('Email', 'Email address format does not appear to be valid.').isEmail(),
   check('Birthday', 'Birthday must be a valid date. (YYYY-MM-DD)').isDate().optional({ checkFalsy: true })
 ], passport.authenticate('jwt', { session: false }), async (req, res) => {
-  if (req.user._id !== req.params.userid) {
+  let objectUserId = req.user._id;
+  let stringUserId = objectUserId.toString();
+  if (stringUserId !== req.params.userid) {
     return res.status(400).send('Permission denied!');
   };
 
@@ -192,7 +196,7 @@ app.put('/users/:userid/', [
   };
 
   let hashedPassword = Users.hashPassword(req.body.Password);
-  await Users.findOneAndUpdate({ _id: req.params.userid }, {
+  await Users.findOneAndUpdate({ _id: objectUserId }, {
     $set: {
       Username: req.body.Username,
       Password: hashedPassword,
@@ -212,10 +216,12 @@ app.put('/users/:userid/', [
 
 // Add movie to user favorites by user id
 app.put('/users/:userid/FavoriteMovies/:movieid', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  if (req.user._id !== req.params.userid) {
+  let objectUserId = req.user._id;
+  let stringUserId = objectUserId.toString();
+  if (stringUserId !== req.params.userid) {
     return res.status(400).send('Permission denied!');
   }
-  await Users.findOneAndUpdate({ _id: req.params.userid }, {
+  await Users.findOneAndUpdate({ _id: objectUserId }, {
     $push: { FavoriteMovies: req.params.movieid },
   },
   {new: true})
@@ -229,10 +235,12 @@ app.put('/users/:userid/FavoriteMovies/:movieid', passport.authenticate('jwt', {
 
 // Remove movie from user favorites by user id
 app.delete('/users/:userid/FavoriteMovies/:movieid', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  if (req.user._id !== req.params.userid) {
+  let objectUserId = req.user._id;
+  let stringUserId = objectUserId.toString();
+  if (stringUserId !== req.params.userid) {
     return res.status(400).send('Permission denied!');
   }
-  await Users.findOneAndUpdate({ _id: req.params.userid }, {
+  await Users.findOneAndUpdate({ _id: objectUserId }, {
     $pull: { FavoriteMovies: req.params.movieid },
   },
   {new: true})
