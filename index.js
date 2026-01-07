@@ -97,9 +97,9 @@ app.get('/directors/:name', passport.authenticate('jwt', { session: false }), as
     });
 });
 
-// Get single user data by username
-app.get('/users/:username', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  if (req.user.Username !== req.params.username) {
+// Get single user data by user id
+app.get('/users/:userid', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  if (req.user._id !== req.params.userid) {
     return res.status(400).send('Permission denied!');
   }
   await Users.findOne({ Username: req.params.username })
@@ -152,9 +152,9 @@ app.post('/users', [
     });
 });
 
-// Delete user from movie api user list by name
-app.delete('/users/:username', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  if (req.user.Username !== req.params.username) {
+// Delete user from movie api user list by user id
+app.delete('/users/:userid', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  if (req.user._id !== req.params.userid) {
     return res.status(400).send('Permission denied!');
   }
   await Users.deleteOne({ Username: req.params.username })
@@ -171,15 +171,15 @@ app.delete('/users/:username', passport.authenticate('jwt', { session: false }),
     });
 });
 
-// Update user data
-app.put('/users/:username/', [
+// Update user data by user id
+app.put('/users/:userid/', [
   check('Username', 'Username is required.').not().isEmpty(),
   check('Username', 'Username contains non-alphanumeric characters, not allowed.').isAlphanumeric(),
   check('Password', 'Password minimum length is eight characters.').isLength({ min: 8 }),
   check('Email', 'Email address format does not appear to be valid.').isEmail(),
   check('Birthday', 'Birthday must be a valid date. (YYYY-MM-DD)').isDate().optional({ checkFalsy: true })
 ], passport.authenticate('jwt', { session: false }), async (req, res) => {
-  if (req.user.Username !== req.params.username) {
+  if (req.user._id !== req.params.userid) {
     return res.status(400).send('Permission denied!');
   };
 
@@ -208,9 +208,9 @@ app.put('/users/:username/', [
     });
 });
 
-// Add movie to user favorites
-app.put('/users/:username/FavoriteMovies/:movieid', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  if (req.user.Username !== req.params.username) {
+// Add movie to user favorites by user id
+app.put('/users/:userid/FavoriteMovies/:movieid', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  if (req.user._id !== req.params.userid) {
     return res.status(400).send('Permission denied!');
   }
   await Users.findOneAndUpdate({ Username: req.params.username }, {
@@ -225,9 +225,9 @@ app.put('/users/:username/FavoriteMovies/:movieid', passport.authenticate('jwt',
     });
 });
 
-// Remove movie from user favorites
-app.delete('/users/:username/FavoriteMovies/:movieid', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  if (req.user.Username !== req.params.username) {
+// Remove movie from user favorites by user id
+app.delete('/users/:userid/FavoriteMovies/:movieid', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  if (req.user._id !== req.params.userid) {
     return res.status(400).send('Permission denied!');
   }
   await Users.findOneAndUpdate({ Username: req.params.username }, {
