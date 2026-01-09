@@ -195,8 +195,26 @@ app.put('/users/:userid/', [
     return res.status(422).json({  errors: errors.array() });
   };
 
+  const update = {};
+
   if (req.body.Password) {
     let hashedPassword = Users.hashPassword(req.body.Password);
+  }
+
+  if (req.body.Username) {
+    update.Username = req.body.Username;
+  }
+
+  if (hashedPassword) {
+    update.Password = hashedPassword;
+  }
+
+  if (req.body.Email) {
+    update.Email = req.body.Email;
+  }
+
+  if (req.body.Birthday) {
+    update.Birthday = req.body.Birthday;
   }
 
   await Users.findOneAndUpdate({ _id: objectUserId }, {
