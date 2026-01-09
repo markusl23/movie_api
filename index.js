@@ -195,7 +195,10 @@ app.put('/users/:userid/', [
     return res.status(422).json({  errors: errors.array() });
   };
 
-  let hashedPassword = Users.hashPassword(req.body.Password);
+  if (req.body.Password) {
+    let hashedPassword = Users.hashPassword(req.body.Password);
+  }
+
   await Users.findOneAndUpdate({ _id: objectUserId }, {
     $set: {
       Username: req.body.Username,
