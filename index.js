@@ -223,7 +223,7 @@ app.put('/users/:userid', [
   }
 
   if (Object.keys(update).length === 0) {
-    res.status(400).send('Error: ' + err + " (No input fields to update)");
+    res.status(400).send("Error: No input fields to update");
   }
 
   await Users.findOneAndUpdate({ _id: objectUserId }, {
