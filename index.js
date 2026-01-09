@@ -201,8 +201,7 @@ app.put('/users/:userid/', [
       Username: req.body.Username,
       Password: hashedPassword,
       Email: req.body.Email,
-      Birthday: req.body.Birthday,
-      FavoriteMovies: req.body.FavoriteMovies
+      Birthday: req.body.Birthday
     }
   },
   { new: true })
