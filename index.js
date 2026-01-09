@@ -215,7 +215,11 @@ app.put('/users/:userid', [
   }
 
   if (req.body.Birthday) {
-    update.Birthday = req.body.Birthday;
+    if (req.body.Birthday === "") {
+      update.Birthday = null;
+    } else {
+      update.Birthday = req.body.Birthday;
+    }
   }
 
   if (Object.keys(update).length === 0) {
