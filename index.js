@@ -199,7 +199,7 @@ app.put('/users/:userid', [
   let hashedPassword;
 
   if (req.body.Password) {
-    let hashedPassword = Users.hashPassword(req.body.Password);
+    hashedPassword = Users.hashPassword(req.body.Password);
   }
 
   if (req.body.Username) {
