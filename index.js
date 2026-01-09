@@ -177,11 +177,11 @@ app.delete('/users/:userid', passport.authenticate('jwt', { session: false }), a
 
 // Update user data by user id
 app.put('/users/:userid/', [
-  check('Username', 'Username is required.').not().isEmpty(),
-  check('Username', 'Username contains non-alphanumeric characters, not allowed.').isAlphanumeric(),
-  check('Password', 'Password minimum length is eight characters.').isLength({ min: 8 }),
-  check('Email', 'Email address format does not appear to be valid.').isEmail(),
-  check('Birthday', 'Birthday must be a valid date. (YYYY-MM-DD)').isDate().optional({ checkFalsy: true })
+  check('Username', 'Username is required.').optional({ checkFalsy: true }).not().isEmpty(),
+  check('Username', 'Username contains non-alphanumeric characters, not allowed.').optional({ checkFalsy: true }).isAlphanumeric(),
+  check('Password', 'Password minimum length is eight characters.').optional({ checkFalsy: true }).isLength({ min: 8 }),
+  check('Email', 'Email address format does not appear to be valid.').optional({ checkFalsy: true }).isEmail(),
+  check('Birthday', 'Birthday must be a valid date. (YYYY-MM-DD)').optional({ checkFalsy: true }).isDate()
 ], passport.authenticate('jwt', { session: false }), async (req, res) => {
   let objectUserId = req.user._id;
   let stringUserId = objectUserId.toString();
