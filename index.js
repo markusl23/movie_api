@@ -196,6 +196,7 @@ app.put('/users/:userid/', [
   };
 
   const update = {};
+  let hashedPassword;
 
   if (req.body.Password) {
     let hashedPassword = Users.hashPassword(req.body.Password);
