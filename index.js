@@ -218,12 +218,7 @@ app.put('/users/:userid/', [
   }
 
   await Users.findOneAndUpdate({ _id: objectUserId }, {
-    $set: {
-      Username: req.body.Username,
-      Password: hashedPassword,
-      Email: req.body.Email,
-      Birthday: req.body.Birthday
-    }
+    $set: {update}
   },
   { new: true })
     .then((updatedUser) => { return Users.findById(updatedUser._id).select('-Password'); })
