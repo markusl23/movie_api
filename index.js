@@ -206,7 +206,7 @@ app.put('/users/:userid/', [
   },
   { new: true })
     .then((updatedUser) => { return Users.findById(updatedUser._id).select('-Password'); })
-      .then((userDataWithoutPassword) => { res.status(201).json(userDataWithoutPassword); })
+      .then((userDataWithoutPassword) => { res.status(200).json(userDataWithoutPassword); })
     .catch((err) => {
       console.log(err);
       res.status(500).send('Error: ' + err);
