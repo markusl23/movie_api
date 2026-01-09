@@ -219,7 +219,7 @@ app.put('/users/:userid/', [
   }
 
   await Users.findOneAndUpdate({ _id: objectUserId }, {
-    $set: {update}
+    $set: update
   },
   { new: true })
     .then((updatedUser) => { return Users.findById(updatedUser._id).select('-Password'); })
