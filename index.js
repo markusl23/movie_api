@@ -115,7 +115,7 @@ app.get('/users/:userid', passport.authenticate('jwt', { session: false }), asyn
 
 // Adds data for new movie api user to user list (users array)
 app.post('/users', [
-  check('Username', 'Username is required.').not().isEmpty(),
+  check('Username', 'Username is required.').isLength({ min: 3 }),
   check('Username', 'Username contains non-alphanumeric characters, not allowed.').isAlphanumeric(),
   check('Password', 'Password minimum length is eight characters.').isLength({ min: 8 }),
   check('Email', 'Email address format does not appear to be valid.').isEmail(),
@@ -177,7 +177,7 @@ app.delete('/users/:userid', passport.authenticate('jwt', { session: false }), a
 
 // Update user data by user id
 app.put('/users/:userid', [
-  check('Username', 'Username cannot be empty when provided.').optional({ checkFalsy: true }).not().isEmpty(),
+  check('Username', 'Username cannot be empty when provided.').optional({ checkFalsy: true }).isLength({ min: 3 }),
   check('Username', 'Username contains non-alphanumeric characters, not allowed.').optional({ checkFalsy: true }).isAlphanumeric(),
   check('CurrentPassword', 'Current password is required for any user data changes.').isLength({ min: 8 }),
   check('NewPassword', 'New password minimum length is eight characters.').optional({ checkFalsy: true }).isLength({ min: 8 }),
