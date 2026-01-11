@@ -164,9 +164,9 @@ app.delete('/users/:userid', passport.authenticate('jwt', { session: false }), a
   await Users.deleteOne({ _id: objectUserId })
     .then((user) => {
       if (!user) {
-        res.status(400).send('User with username ' + req.params.userid + ' was not found');
+        res.status(400).send('User with user ID ' + req.params.userid + ' was not found');
       } else {
-        res.status(200).send('User with username ' + req.params.userid + ' was deleted');
+        res.status(200).send('User with user ID ' + req.params.userid + ' was deleted');
       }
     })
     .catch((err) => {
