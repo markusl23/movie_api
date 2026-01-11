@@ -198,16 +198,22 @@ app.put('/users/:userid', [
   const update = {};
   let hashedPassword;
 
-  if (req.body.Password) {
-    hashedPassword = Users.hashPassword(req.body.Password);
+  if (req.body.NewPassword) {
+    
+    if (!req.body.CurrentPassword) {
+      return res.status(400).send("CurrentPassword is required to change password.");
+    }
+
+    if (!req.user.validatePassword(req.body.CurrentPassword)) {
+    return res.status(401).send("Current password is incorrect.");
+    }
+    
+    hashedPassword = Users.hashPassword(req.body.NewPassword);
+    update.Password = hashedPassword;
   }
 
   if (req.body.Username) {
     update.Username = req.body.Username;
-  }
-
-  if (hashedPassword) {
-    update.Password = hashedPassword;
   }
 
   if (req.body.Email) {
