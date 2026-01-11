@@ -177,7 +177,7 @@ app.delete('/users/:userid', passport.authenticate('jwt', { session: false }), a
 
 // Update user data by user id
 app.put('/users/:userid', [
-  check('Username', 'Username cannot be empty when provided.').optional({ checkFalsy: true }).isLength({ min: 3 }),
+  check('Username', 'Username needs minimum three characters when provided.').optional({ checkFalsy: true }).isLength({ min: 3 }),
   check('Username', 'Username contains non-alphanumeric characters, not allowed.').optional({ checkFalsy: true }).isAlphanumeric(),
   check('CurrentPassword', 'Current password is required for any user data changes.').isLength({ min: 8 }),
   check('NewPassword', 'New password minimum length is eight characters.').optional({ checkFalsy: true }).isLength({ min: 8 }),
