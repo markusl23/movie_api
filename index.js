@@ -180,7 +180,7 @@ app.put('/users/:userid', [
   check('Username', 'Username cannot be empty when provided.').optional({ checkFalsy: true }).not().isEmpty(),
   check('Username', 'Username contains non-alphanumeric characters, not allowed.').optional({ checkFalsy: true }).isAlphanumeric(),
   check('Password', 'Password minimum length is eight characters.').optional({ checkFalsy: true }).isLength({ min: 8 }),
-  check('CurrentPassword', 'Password minimum length is eight characters.').optional({ checkFalsy: true }).isLength({ min: 8 }),
+  check('CurrentPassword', 'Password minimum length is eight characters.').isLength({ min: 8 }),
   check('NewPassword', 'Password minimum length is eight characters.').optional({ checkFalsy: true }).isLength({ min: 8 }),
   check('Email', 'Email address format does not appear to be valid.').optional({ checkFalsy: true }).isEmail(),
   check('Birthday', 'Birthday must be a valid date. (YYYY-MM-DD)').optional({ checkFalsy: true }).isDate()
@@ -203,7 +203,7 @@ app.put('/users/:userid', [
   if (req.body.NewPassword) {
     
     if (!req.body.CurrentPassword) {
-      return res.status(400).send("CurrentPassword is required to change password.");
+      return res.status(400).send("Current password is required.");
     }
 
     if (!req.user.validatePassword(req.body.CurrentPassword)) {
