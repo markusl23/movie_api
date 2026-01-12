@@ -199,7 +199,7 @@ app.put('/users/:userid', [
   const update = {};
   let hashedPassword;
 
-  if (req.body.NewPassword) {
+  if (req.body) {
     
     if (!req.body.CurrentPassword) {
       return res.status(400).send("Current password is required.");
