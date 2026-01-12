@@ -209,23 +209,25 @@ app.put('/users/:userid', [
     return res.status(401).send("Current password is incorrect.");
     }
     
-    hashedPassword = Users.hashPassword(req.body.NewPassword);
-    update.Password = hashedPassword;
-  }
+    if (req.body.NewPassword) {
+      hashedPassword = Users.hashPassword(req.body.NewPassword);
+      update.Password = hashedPassword;
+    }
 
-  if (req.body.Username) {
-    update.Username = req.body.Username;
-  }
+    if (req.body.Username) {
+        update.Username = req.body.Username;
+    }
 
-  if (req.body.Email) {
-    update.Email = req.body.Email;
-  }
+    if (req.body.Email) {
+      update.Email = req.body.Email;
+    }
 
-  if (req.body.Birthday) {
-    if (req.body.Birthday === "") {
-      update.Birthday = null;
-    } else {
-      update.Birthday = req.body.Birthday;
+    if (req.body.Birthday) {
+      if (req.body.Birthday === "") {
+        update.Birthday = null;
+      } else {
+        update.Birthday = req.body.Birthday;
+      }
     }
   }
 
