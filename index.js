@@ -182,7 +182,7 @@ app.put('/users/:userid', [
   check('CurrentPassword', 'Current password is required for any user data changes.').isLength({ min: 8 }),
   check('NewPassword', 'New password minimum length is eight characters.').optional({ checkFalsy: true }).isLength({ min: 8 }),
   check('Email', 'Email address format does not appear to be valid.').optional({ checkFalsy: true }).isEmail(),
-  check('Birthday', 'Birthday must be a valid date. (YYYY-MM-DD)').optional({ checkFalsy: true }).isDate()
+  check('Birthday', 'Birthday must be a valid date.').optional({ checkFalsy: true }).isDate()
 ], passport.authenticate('jwt', { session: false }), async (req, res) => {
   let objectUserId = req.user._id;
   let stringUserId = objectUserId.toString();
