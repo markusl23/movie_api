@@ -43,6 +43,27 @@ require('./passport.js');
 // mongoose.connect('mongodb://localhost:27017/movieAPI_DB');
 mongoose.connect(process.env.CONNECTION_URI);
 
+// Helper function to not allow birthdays which would make users older than 120 years
+function isBirthdayWithinRange(value, { maxAgeYears = 120 } = {}) {
+  const d = new Date(value);
+  if (Number.isNaN(d.getTime())) return false;
+
+  const today = new Date();
+
+  d.setHours(0, 0, 0, 0);
+  today.setHours(0, 0, 0, 0);
+
+  if (d > today) return false;
+
+  const oldest = new Date(today);
+  oldest.setFullYear(today.getFullYear() - maxAgeYears);
+
+  if (d < oldest) return false;
+
+  return true;
+}
+
+
 // App routing for root endpoint
 app.get('/', (req, res) => {
   res.setHeader('Content-Type', 'text/plain');
@@ -120,7 +141,12 @@ app.post('/users', [
   check('Password', 'Password minimum length is eight characters.').isLength({ min: 8 }),
   check('Password', 'Password must not contain whitespace.').matches(/^\S+$/),
   check('Email', 'Email address format does not appear to be valid.').isEmail(),
-  check('Birthday', 'Birthday must be a valid date.').isDate().optional({ checkFalsy: true })
+  check('Birthday', 'Birthday must be a valid date.').isDate().optional({ checkFalsy: true }).custom((value) => {
+    if (!isBirthdayWithinRange(value, { maxAgeYears: 120 })) {
+      throw new Error("Birthday must be realistic (age 0–120).");
+    }
+    return true;
+  })
 ], async (req, res) => {
   let errors = validationResult(req);
 
@@ -184,7 +210,12 @@ app.put('/users/:userid', [
   check('NewPassword', 'New password minimum length is eight characters.').optional({ checkFalsy: true }).isLength({ min: 8 }),
   check('NewPassword', 'New password must not contain whitespace.').optional({ checkFalsy: true }).matches(/^\S+$/),
   check('Email', 'Email address format does not appear to be valid.').optional({ checkFalsy: true }).isEmail(),
-  check('Birthday', 'Birthday must be a valid date.').optional({ checkFalsy: true }).isDate()
+  check('Birthday', 'Birthday must be a valid date.').isDate().optional({ checkFalsy: true }).custom((value) => {
+    if (!isBirthdayWithinRange(value, { maxAgeYears: 120 })) {
+      throw new Error("Birthday must be realistic (age 0–120).");
+    }
+    return true;
+  })
 ], passport.authenticate('jwt', { session: false }), async (req, res) => {
   let objectUserId = req.user._id;
   let stringUserId = objectUserId.toString();
