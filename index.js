@@ -118,6 +118,7 @@ app.post('/users', [
   check('Username', 'Username is required.').isLength({ min: 3 }),
   check('Username', 'Username contains non-alphanumeric characters, not allowed.').isAlphanumeric(),
   check('Password', 'Password minimum length is eight characters.').isLength({ min: 8 }),
+  check('Password', 'Password must not contain whitespace.').matches(/^\S+$/),
   check('Email', 'Email address format does not appear to be valid.').isEmail(),
   check('Birthday', 'Birthday must be a valid date.').isDate().optional({ checkFalsy: true })
 ], async (req, res) => {
@@ -181,6 +182,7 @@ app.put('/users/:userid', [
   check('Username', 'Username contains non-alphanumeric characters, not allowed.').optional({ checkFalsy: true }).isAlphanumeric(),
   check('CurrentPassword', 'Current password is required for any user data changes.').isLength({ min: 8 }),
   check('NewPassword', 'New password minimum length is eight characters.').optional({ checkFalsy: true }).isLength({ min: 8 }),
+  check('NewPassword', 'New password must not contain whitespace.').optional({ checkFalsy: true }).matches(/^\S+$/),
   check('Email', 'Email address format does not appear to be valid.').optional({ checkFalsy: true }).isEmail(),
   check('Birthday', 'Birthday must be a valid date.').optional({ checkFalsy: true }).isDate()
 ], passport.authenticate('jwt', { session: false }), async (req, res) => {
