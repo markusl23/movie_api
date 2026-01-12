@@ -253,7 +253,7 @@ app.put('/users/:userid/FavoriteMovies/:movieid', passport.authenticate('jwt', {
     return res.status(400).send('Permission denied!');
   }
   await Users.findOneAndUpdate({ _id: objectUserId }, {
-    $push: { FavoriteMovies: req.params.movieid },
+    $addToSet: { FavoriteMovies: req.params.movieid },
   },
   {new: true})
     .then((updatedUser) => { return Users.findById(updatedUser._id).select('-Password'); })
